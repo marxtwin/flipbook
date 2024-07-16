@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flipbook</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+    <style>
+        #flipbook {
+            width: 800px;
+            height: 600px;
+        }
+        #flipbook .page {
+            background-color: white;
+            line-height: 300px;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="flipbook">
+        <div class="hard"><img src="cover.jpg" alt="Cover"></div>
+        <div><img src="page1.jpg" alt="Page 1"></div>
+        <div><img src="page2.jpg" alt="Page 2"></div>
+        <div><img src="page3.jpg" alt="Page 3"></div>
+	<div><img src="page4.jpg" alt="Page 4"></div>
+        <div><img src="page5.jpg" alt="Page 5"></div>
+        <div><img src="page6.jpg" alt="Page 6"></div>
+	<div><img src="page7.jpg" alt="Page 7"></div>
+        <div><img src="page8.jpg" alt="Page 8"></div>
+        <div><img src="page9.jpg" alt="Page 9"></div>
+	<div><img src="page10.jpg" alt="Page 10"></div>
+        <div><img src="page11.jpg" alt="Page 11"></div>
+        <div><img src="page12.jpg" alt="Page 12"></div>
+	<div><img src="page13.jpg" alt="Page 13"></div>
+        <div><img src="page14.jpg" alt="Page 14"></div>
+        <div><img src="page15.jpg" alt="Page 15"></div>
+	<div><img src="page16.jpg" alt="Page 16"></div>
+        <div><img src="page17.jpg" alt="Page 17"></div>
+        <div><img src="page18.jpg" alt="Page 18"></div>
+
+        <div class="hard"><img src="backcover.jpg" alt="Back Cover"></div>
+    </div>
+
+    <script type="text/javascript">
+        $("#flipbook").turn({
+            width: 800,
+            height: 600,
+            autoCenter: true
+        });
+    </script>
+</body>
+</html>
