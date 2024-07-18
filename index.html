@@ -9,21 +9,14 @@
     <!-- Include Turn.js -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
         #flipbook {
             width: 800px;
             height: 600px;
+            margin: 0 auto;
         }
         #flipbook .page {
-            width: 400px;
-            height: 600px;
+            width: 100%;
+            height: 100%;
             background-color: white;
         }
     </style>
@@ -55,15 +48,7 @@
             $("#flipbook").turn({
                 width: 800,
                 height: 600,
-                autoCenter: true,
-                pages: 18,
-                elevation: 50,
-                gradients: true,
-                when: {
-                    turned: function(e, page) {
-                        console.log("Page turned: " + page);
-                    }
-                }
+                autoCenter: true
             });
         });
     </script>
