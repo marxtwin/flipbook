@@ -9,14 +9,21 @@
     <!-- Include Turn.js -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
     <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
         #flipbook {
             width: 800px;
             height: 600px;
-            margin: 0 auto;
         }
         #flipbook .page {
-            width: 100%;
-            height: 100%;
+            width: 400px;
+            height: 600px;
             background-color: white;
         }
     </style>
@@ -38,4 +45,27 @@
         <div class="page"><img src="flipbook_images/page_13.png" alt="Page 13" style="width:100%; height:100%;"></div>
         <div class="page"><img src="flipbook_images/page_14.png" alt="Page 14" style="width:100%; height:100%;"></div>
         <div class="page"><img src="flipbook_images/page_15.png" alt="Page 15" style="width:100%; height:100%;"></div>
-        <div class="page"><img src="flipbook_images/page_16.png" alt="Page 16" style="width:100%; height:100%;
+        <div class="page"><img src="flipbook_images/page_16.png" alt="Page 16" style="width:100%; height:100%;"></div>
+        <div class="page"><img src="flipbook_images/page_17.png" alt="Page 17" style="width:100%; height:100%;"></div>
+        <div class="page"><img src="flipbook_images/page_18.png" alt="Page 18" style="width:100%; height:100%;"></div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#flipbook").turn({
+                width: 800,
+                height: 600,
+                autoCenter: true,
+                pages: 18,
+                elevation: 50,
+                gradients: true,
+                when: {
+                    turned: function(e, page) {
+                        console.log("Page turned: " + page);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
