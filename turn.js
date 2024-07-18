@@ -217,5 +217,3 @@
         }
     }); h.isTouch = q
 })(jQuery);
-
-
