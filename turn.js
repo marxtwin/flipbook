@@ -1,22 +1,3 @@
-/**
- * turn.js 3rd release
- * www.turnjs.com
- *
- * Copyright (C) 2012, Emmanuel Garcia.
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * 1. Redistributions of source code must retain the above copyright
- * notice, this list of conditions and the following disclaimer.
- *
- * 2. Any redistribution, use, or modification is done solely for personal 
- * benefit and not for any commercial purpose or for monetary gain.
- * 
- **/
-
 (function($) {
 
 'use strict';
@@ -294,6 +275,21 @@ turnMethods = {
 		});
 
 		data.done = true;
+
+		// Aggiungi i listener per il click
+        this.on('click', '.page', function(event) {
+            var width = $(this).width();
+            var offsetX = event.offsetX;
+            var page = $(this).data('page');
+
+            if (offsetX > width / 2) {
+                // Clic sulla parte destra
+                $(this).closest('#flipbook').turn('next');
+            } else {
+                // Clic sulla parte sinistra
+                $(this).closest('#flipbook').turn('previous');
+            }
+        });
 
 		return this;
 	},
