@@ -19,12 +19,12 @@
         }
         #flipbook {
             width: 800px;
-            height: 600px;
+            height: 800px;
         }
         #flipbook .page {
-            width: 400px;
-            height: 600px;
-            background-color: white;
+            width: 800px;
+            height: 800px;
+            background-color: black;
         }
     </style>
 </head>
@@ -54,14 +54,13 @@
         $(document).ready(function() {
             $("#flipbook").turn({
                 width: 800,
-                height: 600,
+                height: 800,
                 autoCenter: true,
                 pages: 18,
                 elevation: 50,
                 gradients: true,
                 when: {
-                    turned: function(e, page) {
-                        console.log("Page turned: " + page);
+                    turned: function(e, page) {console.log("Page turned: " + page);
                     }
                 }
             });
