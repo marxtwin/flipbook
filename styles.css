@@ -44,3 +44,8 @@ body {
     transform: rotateY(180deg) translateZ(1px);
 }
 
+.page:not(:first-child) {
+    display: none;
+}
+
+
