@@ -3,154 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flipbook HTML</title>
-    <style>
-        /* Stile generale del flipbook */
-        .flipbook-container {
-            background-color: black; /* Sfondo nero */
-            position: relative;
-            width: 500px; /* Regolare la larghezza del flipbook */
-            height: 700px; /* Regolare l'altezza del flipbook */
-            margin: 0 auto; /* Centrare il flipbook nella pagina */
-            overflow: hidden;
-        }
-
-        /* Stile delle pagine del flipbook */
-        .flipbook-page {
-            position: absolute;
-            top: 0;
-            left: 50%; /* Posiziona le pagine al 50% a sinistra */
-            width: 500px; /* Regolare la larghezza delle pagine */
-            height: 700px; /* Regolare l'altezza delle pagine */
-            transform: translateX(-250px); /* Sposta le pagine a sinistra del 50% della larghezza */
-            backface-visibility: hidden; /* Nascondere il retro delle pagine */
-            transform: translateZ(0); /* Creare l'effetto 3D */
-            transition: transform 0.5s ease-in-out; /* Animazione di transizione fluida */
-        }
-
-        .flipbook-page.front {
-            z-index: 100; /* Posiziona la pagina anteriore sopra le altre */
-        }
-
-        .flipbook-page.back {
-            z-index: 50; /* Posiziona la pagina posteriore sotto la pagina anteriore */
-            transform: rotateY(180deg); /* Girare la pagina posteriore di 180 gradi */
-        }
-
-        /* Stile dei pulsanti di navigazione */
-        .flipbook-nav {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 50px; /* Regolare la larghezza dei pulsanti */
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Colore di sfondo semitrasparente */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .flipbook-nav.left {
-            right: 0;
-        }
-
-        .flipbook-nav.right {
-            left: 0;
-        }
-
-        .flipbook-nav img {
-            width: 30px; /* Regolare la dimensione delle icone */
-            height: 30px;
-            cursor: pointer;
-        }
-    </style>
+    <title>Flipbook</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="flipbook">
-        <div class="page"><img src="flipbook_images/page_1.png" alt="Page 1"></div>
-        <div class="page"><img src="flipbook_images/page_2.png" alt="Page 2"></div>
-        <div class="page"><img src="flipbook_images/page_3.png" alt="Page 3"></div>
-        <div class="page"><img src="flipbook_images/page_4.png" alt="Page 4"></div>
-        <div class="page"><img src="flipbook_images/page_5.png" alt="Page 5"></div>
-        <div class="page"><img src="flipbook_images/page_6.png" alt="Page 6"></div>
-        <div class="page"><img src="flipbook_images/page_7.png" alt="Page 7"></div>
-        <div class="page"><img src="flipbook_images/page_8.png" alt="Page 8"></div>
-        <div class="page"><img src="flipbook_images/page_9.png" alt="Page 9"></div>
-        <div class="page"><img src="flipbook_images/page_10.png" alt="Page 10"></div>
-        <div class="page"><img src="flipbook_images/page_11.png" alt="Page 11"></div>
-        <div class="page"><img src="flipbook_images/page_12.png" alt="Page 12"></div>
-        <div class="page"><img src="flipbook_images/page_13.png" alt="Page 13"></div>
-        <div class="page"><img src="flipbook_images/page_14.png" alt="Page 14"></div>
-        <div class="page"><img src="flipbook_images/page_15.png" alt="Page 15"></div>
-        <div class="page"><img src="flipbook_images/page_16.png" alt="Page 16"></div>
-        <div class="page"><img src="flipbook_images/page_17.png" alt="Page 17"></div>
-        <div class="page"><img src="flipbook_images/page_18.png" alt="Page 18"></div>
-
-        <div class="flipbook-nav left">
-            <img src="https://www.flaticon.com/free-icons/right-arrow" alt="Successivo" onclick="goToNextPage()">
+    <div class="flipbook-container">
+        <div id="flipbook">
+            <div class="page"><img src="flipbook_images/page_1.png" alt="Page 1"></div>
+            <div class="page"><img src="flipbook_images/page_2.png" alt="Page 2"></div>
+            <div class="page"><img src="flipbook_images/page_3.png" alt="Page 3"></div>
+            <div class="page"><img src="flipbook_images/page_4.png" alt="Page 4"></div>
+            <div class="page"><img src="flipbook_images/page_5.png" alt="Page 5"></div>
+            <div class="page"><img src="flipbook_images/page_6.png" alt="Page 6"></div>
+            <div class="page"><img src="flipbook_images/page_7.png" alt="Page 7"></div>
+            <div class="page"><img src="flipbook_images/page_8.png" alt="Page 8"></div>
+            <div class="page"><img src="flipbook_images/page_9.png" alt="Page 9"></div>
+            <div class="page"><img src="flipbook_images/page_10.png" alt="Page 10"></div>
+            <div class="page"><img src="flipbook_images/page_11.png" alt="Page 11"></div>
+            <div class="page"><img src="flipbook_images/page_12.png" alt="Page 12"></div>
+            <div class="page"><img src="flipbook_images/page_13.png" alt="Page 13"></div>
+            <div class="page"><img src="flipbook_images/page_14.png" alt="Page 14"></div>
+            <div class="page"><img src="flipbook_images/page_15.png" alt="Page 15"></div>
+            <div class="page"><img src="flipbook_images/page_16.png" alt="Page 16"></div>
+            <div class="page"><img src="flipbook_images/page_17.png" alt="Page 17"></div>
+            <div class="page"><img src="flipbook_images/page_18.png" alt="Page 18"></div>
         </div>
-
-        <div class="flipbook-nav right">
-            <img src="https://www.flaticon.com/free-icons/left-arrow" alt="Precedente" onclick="goToPreviousPage()">
-            </div>
-
-    <script>
-        // Funzione per andare alla pagina successiva
-        function goToNextPage() {
-            // Ottenere la pagina anteriore
-            const frontPage = document.querySelector('.flipbook-page.front');
-
-            // Aggiungere la classe 'back' alla pagina anteriore
-            frontPage.classList.add('back');
-
-            // Rimuovere la classe 'front' dalla pagina anteriore
-            frontPage.classList.remove('front');
-
-            // Ottenere la pagina successiva
-            const nextPage = frontPage.nextElementSibling;
-
-            // Se esiste una pagina successiva
-            if (nextPage) {
-                // Aggiungere la classe 'front' alla pagina successiva
-                nextPage.classList.add('front');
-
-                // Rimuovere la classe 'back' dalla pagina successiva (se presente)
-                nextPage.classList.remove('back');
-            }
-        }
-
-        // Funzione per andare alla pagina precedente
-        function goToPreviousPage() {
-            // Ottenere la pagina posteriore
-            const backPage = document.querySelector('.flipbook-page.back');
-
-            // Aggiungere la classe 'front' alla pagina posteriore
-            backPage.classList.add('front');
-
-            // Rimuovere la classe 'back' dalla pagina posteriore
-            backPage.classList.remove('back');
-
-            // Ottenere la pagina precedente
-            const previousPage = backPage.previousElementSibling;
-
-            // Se esiste una pagina precedente
-            if (previousPage) {
-                // Aggiungere la classe 'back' alla pagina precedente
-                previousPage.classList.add('back');
-
-                // Rimuovere la classe 'front' dalla pagina precedente (se presente)
-                previousPage.classList.remove('front');
-            }
-        }
-    </script>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
 
 
   
