@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const pages = document.querySelectorAll('#flipbook .page');
 
     function showPage(index) {
+        pages.forEach((page, i) => {
+            page.style.display = (i === index || i === index - 1) ? 'flex' : 'none';
+        });
         const angle = index * -180;
         document.querySelector('#flipbook').style.transform = `rotateY(${angle}deg)`;
     }
@@ -17,4 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
             showPage(currentPage);
         });
     });
+
+    showPage(currentPage);  // Show the first page
 });
