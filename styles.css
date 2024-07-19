@@ -8,7 +8,7 @@ body {
 }
 
 .flipbook-container {
-    perspective: 8000px;
+    perspective: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
