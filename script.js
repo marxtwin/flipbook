@@ -3,16 +3,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const pages = document.querySelectorAll('#flipbook .page');
 
     function showPage(index) {
-        const angle = index * -180;
-        document.querySelector('#flipbook').style.transform = `rotateY(${angle}deg)`;
+        pages.forEach((page, i) => {
+            if (i < index) {
+                page.classList.add('flip');
+            } else {
+                page.classList.remove('flip');
+            }
+        });
     }
 
     pages.forEach((page, index) => {
         page.addEventListener('click', () => {
-            if (index % 2 === 0 && index < pages.length - 1) {
-                currentPage++;
-            } else if (index % 2 !== 0 && index > 0) {
-                currentPage--;
+            if (index >= currentPage) {
+                currentPage = index + 1;
+            } else {
+                currentPage = index;
             }
             showPage(currentPage);
         });
