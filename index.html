@@ -96,10 +96,10 @@
         const prevBtn = document.getElementById('prev');
         const nextBtn = document.getElementById('next');
         const totalPages = 18;
-        let currentPage = 0;
+        let currentPage = 1;
 
         function createPages() {
-            for (let i = 0; i < totalPages; i += 2) {
+            for (let i = 1; i < totalPages; i += 2) {
                 const page = document.createElement('div');
                 page.className = 'page';
                 
@@ -142,7 +142,7 @@
         }
 
         function updateButtons() {
-            prevBtn.style.display = currentPage === 0 ? 'none' : 'block';
+            prevBtn.style.display = currentPage === 1 ? 'none' : 'block';
             nextBtn.style.display = currentPage >= totalPages - 2 ? 'none' : 'block';
         }
 
