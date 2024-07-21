@@ -5,25 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flipbook Elegante</title>
     <style>
-        body {
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
         }
-        .flipbook {
-            width: 800px;
-            height: 600px;
+        .flipbook-container {
+            width: 90vw;
+            height: 90vh;
+            max-width: 1200px;
+            max-height: 800px;
             position: relative;
             perspective: 1500px;
+        }
+        .flipbook {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
         }
         .page {
             position: absolute;
             width: 100%;
             height: 100%;
+            top: 0;
+            left: 0;
+            background-color: white;
             transform-origin: left center;
             transition: transform 0.5s;
             transform-style: preserve-3d;
@@ -32,92 +45,111 @@
         .page img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+        }
+        .page-front, .page-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+        .page-back {
+            transform: rotateY(180deg);
         }
         .flipped {
             transform: rotateY(-180deg);
         }
         .nav-button {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0,0,0,0.5);
-            color: white;
-            padding: 10px;
-            text-decoration: none;
-            font-size: 18px;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: transparent;
             z-index: 1000;
+            cursor: pointer;
         }
         #prev {
-            right: 10px;
+            left: 0;
         }
         #next {
-            left: 10px;
+            right: 0;
+        }
+        @media (max-width: 768px) {
+            .flipbook-container {
+                width: 95vw;
+                height: 70vh;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="flipbook" id="flipbook">
-        <div class="page"><img src="flipbook_images/page_1.png" alt="Page 1"></div>
-        <div class="page"><img src="flipbook_images/page_2.png" alt="Page 2"></div>
-        <div class="page"><img src="flipbook_images/page_3.png" alt="Page 3"></div>
-        <div class="page"><img src="flipbook_images/page_4.png" alt="Page 4"></div>
-        <div class="page"><img src="flipbook_images/page_5.png" alt="Page 5"></div>
-        <div class="page"><img src="flipbook_images/page_6.png" alt="Page 6"></div>
-        <div class="page"><img src="flipbook_images/page_7.png" alt="Page 7"></div>
-        <div class="page"><img src="flipbook_images/page_8.png" alt="Page 8"></div>
-        <div class="page"><img src="flipbook_images/page_9.png" alt="Page 9"></div>
-        <div class="page"><img src="flipbook_images/page_10.png" alt="Page 10"></div>
-        <div class="page"><img src="flipbook_images/page_11.png" alt="Page 11"></div>
-        <div class="page"><img src="flipbook_images/page_12.png" alt="Page 12"></div>
-        <div class="page"><img src="flipbook_images/page_13.png" alt="Page 13"></div>
-        <div class="page"><img src="flipbook_images/page_14.png" alt="Page 14"></div>
-        <div class="page"><img src="flipbook_images/page_15.png" alt="Page 15"></div>
-        <div class="page"><img src="flipbook_images/page_16.png" alt="Page 16"></div>
-        <div class="page"><img src="flipbook_images/page_17.png" alt="Page 17"></div>
-        <div class="page"><img src="flipbook_images/page_18.png" alt="Page 18"></div>
-        <a href="#" class="nav-button" id="prev">&#8250;</a>
-        <a href="#" class="nav-button" id="next">&#8249;</a>
+    <div class="flipbook-container">
+        <div class="flipbook" id="flipbook">
+            <!-- Le pagine verranno generate dinamicamente con JavaScript -->
+        </div>
+        <div class="nav-button" id="prev"></div>
+        <div class="nav-button" id="next"></div>
     </div>
 
     <script>
         const flipbook = document.getElementById('flipbook');
-        const pages = flipbook.getElementsByClassName('page');
         const prevBtn = document.getElementById('prev');
         const nextBtn = document.getElementById('next');
+        const totalPages = 18;
         let currentPage = 0;
 
+        function createPages() {
+            for (let i = 1; i <= totalPages; i++) {
+                const page = document.createElement('div');
+                page.className = 'page';
+                
+                const front = document.createElement('div');
+                front.className = 'page-front';
+                const imgFront = document.createElement('img');
+                imgFront.src = `flipbook_images/page_${i}.png`;
+                imgFront.alt = `Page ${i}`;
+                front.appendChild(imgFront);
+
+                const back = document.createElement('div');
+                back.className = 'page-back';
+                if (i < totalPages) {
+                    const imgBack = document.createElement('img');
+                    imgBack.src = `flipbook_images/page_${i + 1}.png`;
+                    imgBack.alt = `Page ${i + 1}`;
+                    back.appendChild(imgBack);
+                }
+
+                page.appendChild(front);
+                page.appendChild(back);
+                flipbook.appendChild(page);
+            }
+        }
+
         function turnPage(direction) {
-            if (direction === 'next' && currentPage < pages.length - 1) {
+            const pages = flipbook.getElementsByClassName('page');
+            if (direction === 'next' && currentPage < totalPages - 1) {
                 pages[currentPage].classList.add('flipped');
-                currentPage++;
+                currentPage += 2;
             } else if (direction === 'prev' && currentPage > 0) {
-                pages[currentPage - 1].classList.remove('flipped');
-                currentPage--;
+                currentPage -= 2;
+                pages[currentPage].classList.remove('flipped');
             }
             updateButtons();
         }
 
         function updateButtons() {
             prevBtn.style.display = currentPage === 0 ? 'none' : 'block';
-            nextBtn.style.display = currentPage === pages.length - 1 ? 'none' : 'block';
+            nextBtn.style.display = currentPage >= totalPages - 1 ? 'none' : 'block';
         }
 
-        prevBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            turnPage('prev');
-        });
+        prevBtn.addEventListener('click', () => turnPage('prev'));
+        nextBtn.addEventListener('click', () => turnPage('next'));
 
-        nextBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            turnPage('next');
-        });
-
+        createPages();
         updateButtons();
     </script>
 </body>
 </html>
-
 
 
 
