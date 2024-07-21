@@ -132,11 +132,11 @@
         function turnPage(direction) {
             const pages = flipbook.getElementsByClassName('page');
             if (direction === 'next' && currentPage < totalPages - 2) {
-                pages[currentPage / 2].classList.add('flipped');
+                pages[currentPage / 2].style.transform = 'rotateY(-180deg)';
                 currentPage += 2;
             } else if (direction === 'prev' && currentPage > 0) {
                 currentPage -= 2;
-                pages[currentPage / 2].classList.remove('flipped');
+                pages[currentPage / 2].style.transform = 'rotateY(0deg)';
             }
             updateButtons();
         }
@@ -154,7 +154,5 @@
     </script>
 </body>
 </html>
-
-
 
   
