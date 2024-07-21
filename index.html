@@ -12,7 +12,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f0f0f0;
+            background-color: black;
             font-family: Arial, sans-serif;
         }
         .flipbook-container {
@@ -32,11 +32,11 @@
         }
         .page {
             position: absolute;
-            width: 100%;
+            width: 50%;
             height: 100%;
             top: 0;
-            left: 0;
-            background-color: white;
+            right: 0;
+            background-color: black;
             transform-origin: left center;
             transition: transform 0.5s;
             transform-style: preserve-3d;
@@ -99,40 +99,46 @@
         let currentPage = 0;
 
         function createPages() {
-            for (let i = 1; i <= totalPages; i++) {
+            for (let i = 0; i < totalPages; i++) {
                 const page = document.createElement('div');
                 page.className = 'page';
                 
                 const front = document.createElement('div');
                 front.className = 'page-front';
                 const imgFront = document.createElement('img');
-                imgFront.src = `flipbook_images/page_${i}.png`;
-                imgFront.alt = `Page ${i}`;
+                imgFront.src = `flipbook_images/page_${i + 1}.png`;
+                imgFront.alt = `Page ${i + 1}`;
                 front.appendChild(imgFront);
 
                 const back = document.createElement('div');
                 back.className = 'page-back';
-                if (i < totalPages) {
+                if (i < totalPages - 1) {
                     const imgBack = document.createElement('img');
-                    imgBack.src = `flipbook_images/page_${i + 1}.png`;
-                    imgBack.alt = `Page ${i + 1}`;
+                    imgBack.src = `flipbook_images/page_${i + 2}.png`;
+                    imgBack.alt = `Page ${i + 2}`;
                     back.appendChild(imgBack);
                 }
 
                 page.appendChild(front);
                 page.appendChild(back);
                 flipbook.appendChild(page);
+
+                if (i > 0) {
+                    page.style.display = 'none';
+                }
             }
         }
 
         function turnPage(direction) {
             const pages = flipbook.getElementsByClassName('page');
             if (direction === 'next' && currentPage < totalPages - 1) {
-                pages[currentPage].classList.add('flipped');
-                currentPage += 2;
+                pages[currentPage].style.display = 'none';
+                currentPage++;
+                pages[currentPage].style.display = 'block';
             } else if (direction === 'prev' && currentPage > 0) {
-                currentPage -= 2;
-                pages[currentPage].classList.remove('flipped');
+                pages[currentPage].style.display = 'none';
+                currentPage--;
+                pages[currentPage].style.display = 'block';
             }
             updateButtons();
         }
@@ -150,9 +156,6 @@
     </script>
 </body>
 </html>
-
-
-
 
 
 
