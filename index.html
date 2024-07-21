@@ -22,42 +22,28 @@
             max-height: 800px;
             position: relative;
             perspective: 1500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .flipbook {
             width: 100%;
             height: 100%;
             position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.5s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .page {
             position: absolute;
-            width: 50%;
+            width: 100%;
             height: 100%;
-            top: 0;
-            right: 0;
-            background-color: black;
-            transform-origin: left center;
-            transition: transform 0.5s;
-            transform-style: preserve-3d;
-            cursor: pointer;
+            display: none;
         }
         .page img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-        }
-        .page-front, .page-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-        }
-        .page-back {
-            transform: rotateY(180deg);
-        }
-        .flipped {
-            transform: rotateY(-180deg);
         }
         .nav-button {
             position: absolute;
@@ -103,43 +89,28 @@
                 const page = document.createElement('div');
                 page.className = 'page';
                 
-                const front = document.createElement('div');
-                front.className = 'page-front';
-                const imgFront = document.createElement('img');
-                imgFront.src = `flipbook_images/page_${i + 1}.png`;
-                imgFront.alt = `Page ${i + 1}`;
-                front.appendChild(imgFront);
+                const img = document.createElement('img');
+                img.src = `flipbook_images/page_${i + 1}.png`;
+                img.alt = `Page ${i + 1}`;
+                page.appendChild(img);
 
-                const back = document.createElement('div');
-                back.className = 'page-back';
-                if (i < totalPages - 1) {
-                    const imgBack = document.createElement('img');
-                    imgBack.src = `flipbook_images/page_${i + 2}.png`;
-                    imgBack.alt = `Page ${i + 2}`;
-                    back.appendChild(imgBack);
-                }
-
-                page.appendChild(front);
-                page.appendChild(back);
                 flipbook.appendChild(page);
-
-                if (i > 0) {
-                    page.style.display = 'none';
-                }
             }
+            // Mostra la prima pagina
+            flipbook.children[0].style.display = 'block';
         }
 
         function turnPage(direction) {
             const pages = flipbook.getElementsByClassName('page');
+            pages[currentPage].style.display = 'none';
+            
             if (direction === 'next' && currentPage < totalPages - 1) {
-                pages[currentPage].style.display = 'none';
                 currentPage++;
-                pages[currentPage].style.display = 'block';
             } else if (direction === 'prev' && currentPage > 0) {
-                pages[currentPage].style.display = 'none';
                 currentPage--;
-                pages[currentPage].style.display = 'block';
             }
+            
+            pages[currentPage].style.display = 'block';
             updateButtons();
         }
 
