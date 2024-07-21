@@ -18,32 +18,46 @@
         .flipbook-container {
             width: 90vw;
             height: 90vh;
-            max-width: 1200px;
-            max-height: 800px;
+            max-width: 1600px;
+            max-height: 1000px;
             position: relative;
             perspective: 1500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
         .flipbook {
             width: 100%;
             height: 100%;
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
         }
         .page {
             position: absolute;
-            width: 100%;
+            width: 50%;
             height: 100%;
-            display: none;
+            top: 0;
+            right: 0;
+            background-color: black;
+            transform-origin: left center;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+            cursor: pointer;
         }
         .page img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+        }
+        .page-front, .page-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+        .page-back {
+            transform: rotateY(180deg);
+        }
+        .flipped {
+            transform: rotateY(-180deg);
         }
         .nav-button {
             position: absolute;
@@ -85,38 +99,51 @@
         let currentPage = 0;
 
         function createPages() {
-            for (let i = 0; i < totalPages; i++) {
+            for (let i = 0; i < totalPages; i += 2) {
                 const page = document.createElement('div');
                 page.className = 'page';
                 
-                const img = document.createElement('img');
-                img.src = `flipbook_images/page_${i + 1}.png`;
-                img.alt = `Page ${i + 1}`;
-                page.appendChild(img);
+                const front = document.createElement('div');
+                front.className = 'page-front';
+                const imgFront = document.createElement('img');
+                imgFront.src = `flipbook_images/page_${i + 1}.png`;
+                imgFront.alt = `Page ${i + 1}`;
+                front.appendChild(imgFront);
 
+                const back = document.createElement('div');
+                back.className = 'page-back';
+                if (i + 1 < totalPages) {
+                    const imgBack = document.createElement('img');
+                    imgBack.src = `flipbook_images/page_${i + 2}.png`;
+                    imgBack.alt = `Page ${i + 2}`;
+                    back.appendChild(imgBack);
+                }
+
+                page.appendChild(front);
+                page.appendChild(back);
                 flipbook.appendChild(page);
+
+                if (i > 0) {
+                    page.style.transform = 'rotateY(-180deg)';
+                }
             }
-            // Mostra la prima pagina
-            flipbook.children[0].style.display = 'block';
         }
 
         function turnPage(direction) {
             const pages = flipbook.getElementsByClassName('page');
-            pages[currentPage].style.display = 'none';
-            
-            if (direction === 'next' && currentPage < totalPages - 1) {
-                currentPage++;
+            if (direction === 'next' && currentPage < totalPages - 2) {
+                pages[currentPage / 2].classList.add('flipped');
+                currentPage += 2;
             } else if (direction === 'prev' && currentPage > 0) {
-                currentPage--;
+                currentPage -= 2;
+                pages[currentPage / 2].classList.remove('flipped');
             }
-            
-            pages[currentPage].style.display = 'block';
             updateButtons();
         }
 
         function updateButtons() {
             prevBtn.style.display = currentPage === 0 ? 'none' : 'block';
-            nextBtn.style.display = currentPage >= totalPages - 1 ? 'none' : 'block';
+            nextBtn.style.display = currentPage >= totalPages - 2 ? 'none' : 'block';
         }
 
         prevBtn.addEventListener('click', () => turnPage('prev'));
